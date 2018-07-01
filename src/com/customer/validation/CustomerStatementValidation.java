@@ -41,15 +41,17 @@ public class CustomerStatementValidation {
 			input = new Scanner(System.in);
 			int choice = input.nextInt();
 			
-			if(choice == 1){
+			if(choice == 1) {
 				System.out.println("Please input CSV file path to validate\n");
 				inputFile = new Scanner(System.in);
 				path = inputFile.next();
+				// Calling CSV file validation method
 				doValidateCSVCustomerStatement(path);
-			}else if(choice == 2){
+			}else if(choice == 2) {
 				System.out.println("Please input XML file path to validate\n");
 				inputFile = new Scanner(System.in);
 				path = inputFile.next();
+				// Calling XML file validation method
 				doValidateXMLCustomerStatement(path);
 			}else{
 				System.out.println("Please select the valid file format\n");
@@ -171,7 +173,7 @@ public class CustomerStatementValidation {
                 	TransactionDTO txnDTO = new TransactionDTO(txnRefNo,accountNum,description,
                 			startBalance,mutation,endBalance);
                 	
-                	// Validating unique transaction reference and negative end balance in CSV report
+                	// Validating unique transaction reference and negative end balance in XML report
                 	if(uniqueTxnRefNo.add(txnDTO.getTxnsRefNo()) && txnDTO.getEndBalance() > 0){   
                 		uniqueTransList.add(txnDTO);
                 	}else{
