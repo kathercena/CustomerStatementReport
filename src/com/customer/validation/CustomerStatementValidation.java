@@ -14,6 +14,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.customer.dto.TransactionDTO;
+
 
 /**
  * @author Kather P - @created time June 30, 2018
@@ -60,7 +62,8 @@ public class CustomerStatementValidation {
 			input.close();
 			inputFile.close();
 			System.out.println("Please select the valid file format\n");
-			System.out.println("Error occured while reading file"+ex.getMessage()+" "+ex.getCause());		}
+			System.out.println("Error occured while reading file"+ex.getMessage()+" "+ex.getCause());
+		}
     }
 
 	// Validating CSV Customer Statement report file
@@ -85,7 +88,6 @@ public class CustomerStatementValidation {
             
             //Reading from the second line
             while ((line = br.readLine()) != null) {
-            	
                 String[] employeeDetails = line.split(COMMA_DELIMITER);
                 
                 if(employeeDetails.length > 0 ) {
@@ -103,7 +105,6 @@ public class CustomerStatementValidation {
                 	}
                 }
             }
-            
             System.out.println("Customer Statement report successfully validated.\n");
             
             //Lets print the Failed Customer Statement details report
@@ -181,18 +182,17 @@ public class CustomerStatementValidation {
                 	}
 				}
 			}
-			
-			 System.out.println("Customer Statement report successfully validated.\n");
+			System.out.println("Customer Statement report successfully validated.\n");
 			 
-			 //Lets print the Failed Customer Statement details report
-			 if(duplicateTransList.size() > 0) {
-		            System.out.println("Failed Customer Statement Reports are: ");
-		            count = 1;
-		            for(TransactionDTO dto : duplicateTransList) {      	
-		                System.out.println(count++ +"."+"Transaction reference = "+dto.getTxnsRefNo()
-		                		+", Description = "+dto.getDescription());
-		            }
-	            }
+			//Lets print the Failed Customer Statement details report
+			if(duplicateTransList.size() > 0) {
+				System.out.println("Failed Customer Statement Reports are: ");
+				count = 1;
+				for(TransactionDTO dto : duplicateTransList) {      	
+					System.out.println(count++ +"."+"Transaction reference = "+dto.getTxnsRefNo()
+							+", Description = "+dto.getDescription());
+				}
+	         }
 			
 		}catch(Exception ex) {
 			System.out.println("Please input valid file");
@@ -200,74 +200,3 @@ public class CustomerStatementValidation {
         }
 	}
 } 
-		
-// Transaction Object 	
-class TransactionDTO {
-		
-		private int TxnsRefNo;
-		private String AccountNumber;
-		private double StartBalance;
-		private double EndBalance;
-		private String Mutation;
-		private String Description;
-		 
-		
-		public TransactionDTO(int TxnsRefNo, String AccountNumber,String Description, 
-				double StartBalance,String Mutation,double EndBalance) {
-		   super();
-		   this.TxnsRefNo = TxnsRefNo;
-		   this.AccountNumber = AccountNumber;
-		   this.StartBalance = StartBalance;
-		   this.EndBalance = EndBalance;
-		   this.Mutation = Mutation;
-		   this.Description = Description;		   
-		}
-
-		 
-		public int getTxnsRefNo() {
-			return TxnsRefNo;
-		}
-		public void setTxnsRefNo(int txnsRefNo) {
-			TxnsRefNo = txnsRefNo;
-		}
-		public String getAccountNumber() {
-			return AccountNumber;
-		}
-		public void setAccountNumber(String accountNumber) {
-			AccountNumber = accountNumber;
-		}
-		public double getStartBalance() {
-			return StartBalance;
-		}
-		public void setStartBalance(double startBalance) {
-			StartBalance = startBalance;
-		}
-		public double getEndBalance() {
-			return EndBalance;
-		}
-		public void setEndBalance(double endBalance) {
-			EndBalance = endBalance;
-		}
-		public String getMutation() {
-			return Mutation;
-		}
-		public void setMutation(String mutation) {
-			Mutation = mutation;
-		}
-		public String getDescription() {
-			return Description;
-		}
-		public void setDescription(String description) {
-			Description = description;
-		}
-		
-		@Override
-		public String toString() {
-			return "[TxnsRefNo = " + TxnsRefNo + ", AccountNumber = "
-					+ AccountNumber + ", StartBalance = " + StartBalance
-					+ ", EndBalance = " + EndBalance + ", Mutation = " + Mutation
-					+ ", Description = " + Description + "]";
-		}		 
-		 
-	}
-
