@@ -9,12 +9,12 @@ public class TransactionDTO implements Serializable{
 	private String AccountNumber;
 	private double StartBalance;
 	private double EndBalance;
-	private String Mutation;
+	private double Mutation;
 	private String Description;
 	 
 	// Constructor 
 	public TransactionDTO(int TxnsRefNo, String AccountNumber,String Description, 
-			double StartBalance,String Mutation,double EndBalance) {
+			double StartBalance,double Mutation,double EndBalance) {
 	   super();
 	   this.TxnsRefNo = TxnsRefNo;
 	   this.AccountNumber = AccountNumber;
@@ -49,10 +49,10 @@ public class TransactionDTO implements Serializable{
 	public void setEndBalance(double endBalance) {
 		EndBalance = endBalance;
 	}
-	public String getMutation() {
+	public double getMutation() {
 		return Mutation;
 	}
-	public void setMutation(String mutation) {
+	public void setMutation(double mutation) {
 		Mutation = mutation;
 	}
 	public String getDescription() {

@@ -34,7 +34,7 @@ public class TestLogic {
 				//Save the Customer Statement details in TransactionDTO object
 	          	TransactionDTO txnDTO = new TransactionDTO(Integer.parseInt(employeeDetails[0]),
 	                      employeeDetails[1],employeeDetails[2],Double.parseDouble(employeeDetails[3]),
-	                      employeeDetails[4],Double.parseDouble(employeeDetails[5]));
+	                      Double.parseDouble(employeeDetails[4]),Double.parseDouble(employeeDetails[5]));
 	          	result.add(txnDTO);
 			 }
 		  }
@@ -49,7 +49,7 @@ public class TestLogic {
 	// Checking size of the file
 	  @Test
 	  public void ContentValidation() throws IOException  {
-		  TransactionDTO dto1 = new TransactionDTO(194261, "NL91RABO0315273637", "Clothes from Jan Bakker",21.6,"-41.83", -20.23);
+		  TransactionDTO dto1 = new TransactionDTO(194261, "NL91RABO0315273637", "Clothes from Jan Bakker",21.6,-41.83, -20.23);
 		  assertNotNull("List shouldn't be null", result);
 		  assertEquals("Wrong 1st element", dto1, result.get(0));
 	  }
@@ -63,7 +63,7 @@ public class TestLogic {
 	  // Checking objects  
 	  @Test
 	  public void myObjectEqualsTest() { 	         
-	  	TransactionDTO txnObj = new TransactionDTO(183049, "NL69ABNA0433647324", "Clothes for Jan King",86.66,"+44.5",131.16);
+	  	TransactionDTO txnObj = new TransactionDTO(183049, "NL69ABNA0433647324", "Clothes for Jan King",86.66,+44.5,131.16);
 	    assertEquals(txnObj,  result.get(2));
 	  }
 	  
