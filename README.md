@@ -1,14 +1,12 @@
-# CustomerStatementReport
-
 Please read the below instruction to run the program.
 
 Step 1:
 
-Kindly take the CustomerStatementValidation and TestLogic objects from given Github link
+Kindly take the CustomerStatementReport project from given Github link and placed in your system disk
 
 Step 2:
 
-Create the sample java project from Eclipse IDE and place those files in under package
+Import the above project to Eclipse IDE along with Maven
 
 Step 3: 
 
@@ -22,4 +20,9 @@ follow that instruction and perform csv and xml file validation.
 
 Step 5:
 
-once successfully validate, if any invalid records present, console will display failure records.
+Post successful validation failure records are generated for invalid records.
+
+
+Failure records are generated at the below path
+
+Path: <<you placed projects in disk path>> \CustomerStatementReport\target\classes\com\customer\report\
