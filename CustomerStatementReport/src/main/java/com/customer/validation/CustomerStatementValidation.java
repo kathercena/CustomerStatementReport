@@ -42,8 +42,8 @@ public class CustomerStatementValidation {
     //Global variables for file path
     private static final String FILENAME_CSV = "com/customer/files/records.csv";
     private static final String FILENAME_XML = "com/customer/files/records.xml";
-    private static final String FAILURE_FILE_CSV = "\\target\\classes\\com\\customer\\report\\failure.csv";
-    private static final String FAILURE_FILE_XML = "\\target\\classes\\com\\customer\\report\\failure.xml";
+    private static final String FAILURE_FILE_CSV = "\\target\\classes\\com\\customer\\files\\failure.csv";
+    private static final String FAILURE_FILE_XML = "\\target\\classes\\com\\customer\\files\\failure.xml";
     
     private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##");
     //CSV file header
