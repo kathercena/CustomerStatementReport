@@ -46,12 +46,12 @@ public class TestLogic {
 		  assertEquals("Size of the list should be 10", 10, result.size());	  
 	  }
 
-	// Checking size of the file
+	// Checking description of the record
 	  @Test
 	  public void ContentValidation() throws IOException  {
 		  TransactionDTO dto1 = new TransactionDTO(194261, "NL91RABO0315273637", "Clothes from Jan Bakker",21.6,-41.83, -20.23);
 		  assertNotNull("List shouldn't be null", result);
-		  assertEquals("Wrong 1st element", dto1, result.get(0));
+		  assertEquals("Wrong 1st element", dto1.getDescription(), result.get(0).getDescription());
 	  }
 	  // Checking account number
 	  @Test
@@ -60,11 +60,11 @@ public class TestLogic {
 	      TransactionDTO transactionDTO = result.get(0);
 	      assertEquals(accNumber, transactionDTO.getAccountNumber());
 	  }
-	  // Checking objects  
+	  // Checking end balance  
 	  @Test
 	  public void myObjectEqualsTest() { 	         
 	  	TransactionDTO txnObj = new TransactionDTO(183049, "NL69ABNA0433647324", "Clothes for Jan King",86.66,+44.5,131.16);
-	    assertEquals(txnObj,  result.get(2));
+	    assertEquals(131.16, result.get(2).getEndBalance(),txnObj.getEndBalance());
 	  }
 	  
 	  @After
