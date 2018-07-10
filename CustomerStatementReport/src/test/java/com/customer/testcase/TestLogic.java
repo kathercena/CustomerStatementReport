@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -19,6 +20,7 @@ public class TestLogic {
 	//Declaring Global variables
 	 private BufferedReader in = null;
 	 private List<TransactionDTO> result = new ArrayList<TransactionDTO>();
+	 private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##");
 	 
 	 //Reading file and store into array list
 	 @Before
@@ -55,16 +57,25 @@ public class TestLogic {
 	  }
 	  // Checking account number
 	  @Test
-	  public void mySimpleEqualsTest() {	         
+	  public void AccNumberValidation() {	         
 	      String accNumber = "NL91RABO0315273637";
 	      TransactionDTO transactionDTO = result.get(0);
 	      assertEquals(accNumber, transactionDTO.getAccountNumber());
 	  }
 	  // Checking end balance  
 	  @Test
-	  public void myObjectEqualsTest() { 	         
+	  public void EndBalanceEqualsTest() { 	         
 	  	TransactionDTO txnObj = new TransactionDTO(183049, "NL69ABNA0433647324", "Clothes for Jan King",86.66,+44.5,131.16);
-	    assertEquals(131.16, result.get(2).getEndBalance(),txnObj.getEndBalance());
+	    assertEquals(131.16, result.get(2).getEndBalance(),0.002);
+	  }
+	  
+  	  // Checking end balance calculation
+	  @Test
+	  public void EndBalanceCalculationTest() { 	         
+	  	TransactionDTO txnObj = new TransactionDTO(183049, "NL69ABNA0433647324", "Clothes for Jan King",86.66,+44.5,131.16);
+	  	String formatBalance  = DECIMAL_FORMAT.format(txnObj.getStartBalance() + txnObj.getMutation());
+		double endBalance = Double.parseDouble(formatBalance);				
+	    assertEquals(131.17, endBalance,0.01);
 	  }
 	  
 	  @After
