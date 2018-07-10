@@ -40,8 +40,8 @@ public class CustomerStatementValidation {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     //Global variables for file path
-    private static final String FILENAME_CSV = "com/customer/files/records.csv";
-    private static final String FILENAME_XML = "com/customer/files/records.xml";
+    private static final String FILENAME_CSV = "\\target\\classes\\com\\customer\\files\\records.csv";
+    private static final String FILENAME_XML = "\\target\\classes\\com\\customer\\files\\records.xml";
     private static final String FAILURE_FILE_CSV = "\\target\\classes\\com\\customer\\files\\failure.csv";
     private static final String FAILURE_FILE_XML = "\\target\\classes\\com\\customer\\files\\failure.xml";
     
@@ -124,10 +124,10 @@ public class CustomerStatementValidation {
 		BufferedReader br = null;
 		try {
 			/*Getting report file from resource bundle*/
-	        ClassLoader classLoader = new CustomerStatementValidation().getClass().getClassLoader();
-	        File file = new File(classLoader.getResource(FILENAME_CSV).getFile());
+			String fileName = System.getProperty("user.dir")+FILENAME_CSV;
+	
 			//Reading the csv file
-            br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new FileReader(fileName));
             String line = "";
             //Read to skip the header
             br.readLine();
@@ -166,12 +166,12 @@ public class CustomerStatementValidation {
 		
 		try{
 			/*Getting XML report from resource bundle*/
-			ClassLoader classLoader = new CustomerStatementValidation().getClass().getClassLoader();
-		    File file = new File(classLoader.getResource(FILENAME_XML).getFile());
+		    String fileName = System.getProperty("user.dir")+FILENAME_XML;
+		    
 			// Reading XML file from path
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document document = db.parse(file);
+			Document document = db.parse(fileName);
 			document.getDocumentElement().normalize();
 
 			/*Get the parent tag element from xml file*/
@@ -214,12 +214,6 @@ public class CustomerStatementValidation {
 		try{
 			/* Getting destination path to generate report*/ 
 			String fileName = System.getProperty("user.dir")+FAILURE_FILE_CSV;
-			System.out.println("fileName "+fileName);
-			
-			if(fileName.contains("CustomerStatementReport-0.0.1-SNAPSHOT.jar!")){
-	    		fileName = fileName.replaceAll("CustomerStatementReport-0.0.1-SNAPSHOT.jar!", "");
-			}
-			System.out.println("fileName "+fileName);
 			
 			/*Writing report file to destination path*/
 			fileWriter = new FileWriter(fileName);
