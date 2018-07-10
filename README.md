@@ -1,28 +1,51 @@
 Please read the below instruction to run the program.
 
+Tools used :
+Maven 3.0.5
+Eclipse 4.2
+JDK 7
+
 Step 1:
 
-Kindly take the CustomerStatementReport project from given Github link and placed in your system disk
+Kindly take the CustomerStatementReport project from given Github link and placed in your local system 
 
 Step 2:
 
-Import the above project to Eclipse IDE along with Maven
+Kindly take the Cus_repository from Github link and Configure to Maven repository in Eclipse
 
-Step 3: 
+->Eclipse ->Window -> Preference -> Maven -> User settings 
+ 
+import the Cus_repository\setting.xml in User settings field
 
-Right click on CustomerStatementValidation.java and run on --> java application
+Step 3:
+
+Build the the CustomerStatementReport project by using maven
+
+->Right click on CustomerStatementReport and Run As --> Maven build 
 
 Step 4:
 
-Once code run and console will print the instruction. 
+Once successfully build the project, output jar will be generated at project target location.
 
-follow that instruction and perform csv and xml file validation.
+Output jar -> CustomerStatementReport-0.0.1-SNAPSHOT.jar
 
 Step 5:
 
-Post successful validation failure records are generated for invalid records.
+go to the path: <<you placed projects in disk path>>\CustomerStatementReport-master\CustomerStatementReport\
 
+Run the project jar file
 
-Failure records are generated at the below path
+-> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT.jar com.customer.validation.CustomerStatementValidation
 
-Path: <<you placed projects in disk path>> \CustomerStatementReport\target\classes\com\customer\report\
+Step 6:
+
+follow that instruction and perform csv and xml file validation.
+
+Step 7:
+
+Post successful validation, invalid records will generated in failure reports.
+
+Failure reports are generated at the below path
+
+Path: <<you placed projects in disk path>> \CustomerStatementReport-master\CustomerStatementReport\target\classes\com\customer\files\
+
