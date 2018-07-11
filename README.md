@@ -7,7 +7,11 @@ JDK 7
 
 Step 1:
 
-Kindly take the CustomerStatementReport project from given Github link and placed in your local system 
+Kindly take the CustomerStatementReport project from given Github link and placed in your local system.
+
+If you want to directly run this project then you can follow step 5 to step 7. 
+
+Otherwise if you want to build and run this project then follow below step one by one.
 
 Step 2:
 
