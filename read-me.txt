@@ -15,7 +15,11 @@ Otherwise if you want to build and run this project then follow below step one b
 
 Step 2:
 
-Kindly take the Cus_repository from Github link and Configure to Maven repository in Eclipse
+Kindly take the Cus_repository from Github link.
+
+Change the location of Cus_repository folderin setting.xml.
+
+Configure Cus_repository to Maven repository in Eclipse
 
 ->Eclipse ->Window -> Preference -> Maven -> User settings 
  
@@ -31,7 +35,7 @@ Step 4:
 
 Once successfully build the project, output jar will be generated at project target location.
 
-Output jar -> CustomerStatementReport-0.0.1-SNAPSHOT.jar
+Output jar -> CustomerStatementReport-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 Step 5:
 
@@ -39,7 +43,7 @@ go to the path: <<you placed projects in disk path>>\CustomerStatementReport-mas
 
 Run the project jar file
 
--> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT.jar com.customer.validation.CustomerStatementValidation
+-> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.customer.validation.CustomerStatementValidation
 
 Step 6:
 
