@@ -1,5 +1,4 @@
 package com.customer.validation;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -24,7 +23,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import com.customer.dto.TransactionDTO;
 
 /**
@@ -54,7 +55,6 @@ public class CustomerStatementValidation {
 	 * Main method for executing the class
 	 */
 	public static void main(String[] args) {
-		System.out.println("Please choose the file to validate");
 		System.out.println("1. CSV file");
 		System.out.println("2. XML file\n");
 		
@@ -123,37 +123,28 @@ public class CustomerStatementValidation {
 	public static List<TransactionDTO> doReadCSVCustomerStatement() {
 		/*Create List for holding Customer Statement details objects*/
         List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
-		BufferedReader br = null;
+		CSVParser parser = null;
 		try {
 			/*Getting report file from resource bundle*/
 			String fileName = System.getProperty("user.dir")+FILENAME_CSV;
-	
-			//Reading the csv file
-            br = new BufferedReader(new FileReader(fileName));
-            String line = "";
-            //Read to skip the header
-            br.readLine();
-            
-            //Reading from the second line
-            while ((line = br.readLine()) != null) {
-                String[] trnsactionDetails = line.split(COMMA_DELIMITER);
-                
-                if(trnsactionDetails.length > 0 ) {
-                    /*Save the Customer Statement details in TransactionDTO object*/
-                	TransactionDTO txnDTO = new TransactionDTO(Integer.parseInt(trnsactionDetails[0]),
-                			trnsactionDetails[1],trnsactionDetails[2],Double.parseDouble(trnsactionDetails[3]),
-                            Double.parseDouble(trnsactionDetails[4]),Double.parseDouble(trnsactionDetails[5]));
-                	/*Adding transaction object into List*/
-                	transactionList.add(txnDTO);
-                }
-            }
+           
+           /*Reading the csv file and skip the header*/
+            parser = new CSVParser(new FileReader(fileName), CSVFormat.DEFAULT.withHeader()); 
+			for (CSVRecord record : parser) { 
+				/*Save the Customer Statement details in TransactionDTO object*/
+             	TransactionDTO txnDTO = new TransactionDTO(Integer.parseInt(record.get("Reference")),
+             			record.get("AccountNumber"),record.get("Description"),Double.parseDouble(record.get("Start Balance")),
+                         Double.parseDouble(record.get("Mutation")),Double.parseDouble(record.get("End Balance")));
+             	/*Adding transaction object into List*/
+             	transactionList.add(txnDTO);
+			} 
         }catch(Exception ex) {
         	System.out.println("Error occured while reading file"+ex.getMessage()+" "+ex.getCause());
         }finally {
         	try {
-	            br.close();
+        		parser.close();
 	        }catch(IOException ie) {
-	            System.out.println("Error occured while closing the BufferedReader"+ie.getMessage()+"--"+ie.getCause());
+	            System.out.println("Error occured while closing the parser"+ie.getMessage()+"--"+ie.getCause());
 	        }
         }
 		return transactionList;		
