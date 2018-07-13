@@ -17,7 +17,7 @@ Step 2:
 
 Kindly take the Cus_repository from Github link.
 
-Change the location of Cus_repository folderin setting.xml.
+Change the location of Cus_repository folder in setting.xml.
 
 Configure Cus_repository to Maven repository in Eclipse
 
@@ -26,6 +26,10 @@ Configure Cus_repository to Maven repository in Eclipse
 import the Cus_repository\setting.xml in User settings field
 
 Step 3:
+
+import the CustomerStatementReport maven projects into your eclispse.
+
+--> File--> Import --> Maven --> Existing Maven projects --> browse the CustomerStatementReport project
 
 Build the the CustomerStatementReport project by using maven
 
