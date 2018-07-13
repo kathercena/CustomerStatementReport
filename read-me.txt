@@ -29,7 +29,7 @@ Step 3:
 
 Build the the CustomerStatementReport project by using maven
 
-->Right click on CustomerStatementReport and Run As --> Maven build 
+->Right click on CustomerStatementReport and Run As --> Maven build --> Goals --> clean compile assembly:single
 
 Step 4:
 
