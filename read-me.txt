@@ -17,7 +17,7 @@ Step 2:
 
 Kindly take the Cus_repository from Github link.
 
-Change the location of Cus_repository folderin setting.xml.
+Change the location of Cus_repository folder in setting.xml.
 
 Configure Cus_repository to Maven repository in Eclipse
 
