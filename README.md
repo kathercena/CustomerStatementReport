@@ -2,16 +2,13 @@ Please read the below instruction to run the program.
 
 Tools used :
 Maven 3.0.5
-Eclipse 4.2
-JDK 7
+Eclipse 4.7
+JDK 1.8
 
 Step 1:
 
 Kindly take the CustomerStatementReport project from given Github link and placed in your local system.
 
-If you want to directly run this project then you can follow step 5 to step 7. 
-
-Otherwise if you want to build and run this project then follow below step one by one.
 
 Step 2:
 
@@ -33,13 +30,12 @@ import the CustomerStatementReport maven projects into your eclispse.
 
 Build the the CustomerStatementReport project by using maven
 
-->Right click on CustomerStatementReport and Run As --> Maven build --> Goals --> clean compile assembly:single
-
+->Right click on CustomerStatementReport and Run As --> Maven build --> Goals --> clean install
 Step 4:
 
 Once successfully build the project, output jar will be generated at project target location.
 
-Output jar -> CustomerStatementReport-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+Output jar -> CustomerStatementReport-0.0.1-SNAPSHOT-jar
 
 Step 5:
 
@@ -47,7 +43,7 @@ go to the path: <<you placed projects in disk path>>\CustomerStatementReport-mas
 
 Run the project jar file
 
--> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.customer.validation.CustomerStatementValidation
+-> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT-jar com.customer.validation.CustomerStatementValidation
 
 Step 6:
 
