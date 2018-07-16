@@ -2,14 +2,16 @@ package com.customer.testcase;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.Before;
 import org.junit.Test;
 import com.customer.dto.TransactionDTO;
@@ -18,28 +20,30 @@ import com.customer.dto.TransactionDTO;
 public class TestLogic {
 	
 	//Declaring Global variables
-	 private BufferedReader in = null;
 	 private List<TransactionDTO> result = new ArrayList<TransactionDTO>();
 	 private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##");
+    //Global variables for file path
+    private static final String FILENAME_CSV = "\\target\\classes\\com\\customer\\files\\records.csv";
 	 
 	 //Reading file and store into array list
 	 @Before
 	 public void setup() throws IOException {
-		 in = new BufferedReader(new FileReader(new File("E:\\records.csv")));
-		 String st = "";
-		//Read to skip the header
-         in.readLine();
-         
-		 while ((st = in.readLine()) != null){
-			 String[] employeeDetails = st.split(",");  
-			 if(employeeDetails.length > 0 ) {
-				//Save the Customer Statement details in TransactionDTO object
-	          	TransactionDTO txnDTO = new TransactionDTO(Integer.parseInt(employeeDetails[0]),
-	                      employeeDetails[1],employeeDetails[2],Double.parseDouble(employeeDetails[3]),
-	                      Double.parseDouble(employeeDetails[4]),Double.parseDouble(employeeDetails[5]));
-	          	result.add(txnDTO);
-			 }
-		  }
+		 List<String> list = new ArrayList<>();
+		 String fileName = System.getProperty("user.dir")+FILENAME_CSV;
+		 
+		 try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+             list = stream.skip(1).filter(Objects::nonNull).filter(s -> s.trim().length() > 0).collect(Collectors.toList());
+             for(String obj:list){
+           	 String[] trans = obj.split(",");
+           	/*Save the Customer Statement details in TransactionDTO object*/
+              	TransactionDTO txnDTO = new TransactionDTO(Integer.parseInt(trans[0]),
+              			trans[1],trans[2],Double.parseDouble(trans[3]),
+                       Double.parseDouble(trans[4]),Double.parseDouble(trans[5]));
+             
+              	/*Adding transaction object into List*/
+              	result.add(txnDTO);
+             }
+		 }
 	 }
 	
 	 // Checking size of the file
@@ -78,12 +82,5 @@ public class TestLogic {
 	    assertEquals(131.17, endBalance,0.01);
 	  }
 	  
-	  @After
-	  public void teardown() throws IOException {
-		  if (in != null) {
-		        in.close();
-		  }
-		  in = null;
-	  }
 }
 
