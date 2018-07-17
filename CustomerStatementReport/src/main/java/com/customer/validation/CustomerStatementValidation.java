@@ -38,15 +38,12 @@ import com.customer.dto.TransactionDTO;
  */
 public class CustomerStatementValidation {
 
-	//Delimiters used in the CSV file
-    private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     //Global variables for file path
     private static final String FILENAME_CSV = "\\target\\classes\\com\\customer\\files\\records.csv";
     private static final String FILENAME_XML = "\\target\\classes\\com\\customer\\files\\records.xml";
     private static final String FAILURE_FILE_CSV = "\\target\\classes\\com\\customer\\files\\failure.csv";
     private static final String FAILURE_FILE_XML = "\\target\\classes\\com\\customer\\files\\failure.xml";
-    
     private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##");
     //CSV file header
     private static final String FILE_HEADER = "Reference,Description";
@@ -79,7 +76,7 @@ public class CustomerStatementValidation {
 			if(flag)
 				System.out.println("Customer Statement report successfully validated.Failure Reports are generated at below path\n"+filePath);
 			
-		}catch(Exception ex) {
+		} catch(Exception ex) {
 			input.close();
 			System.out.println("Error occured while reading file"+ex.getMessage()+" "+ex.getCause());
 		}
@@ -112,7 +109,7 @@ public class CustomerStatementValidation {
 				if(!uniqueReferNo.add(dto.getTxnsRefNo()) || endBalance != dto.getEndBalance())
 					failureTransList.add(dto);
 			}
-		}catch(Exception ex) { 
+		} catch(Exception ex) { 
 			 System.out.println("Error occured while validating the Transactions List"+ex.getMessage()+"--"+ex.getCause());
 		}
   		return failureTransList;
@@ -122,8 +119,8 @@ public class CustomerStatementValidation {
 	 *Reading CSV Customer Statement report
 	 */
 	public static List<TransactionDTO> doReadCSVCustomerStatement() {
+		 /*Create List for holding Customer Statement details objects*/
 		List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
-		//read file into stream, try-with-resources
 		List<String> list = new ArrayList<>();
 		
 		/*Getting report file from resource bundle*/
@@ -131,15 +128,14 @@ public class CustomerStatementValidation {
 		
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
               list = stream.skip(1).filter(Objects::nonNull).filter(s -> s.trim().length() > 0).collect(Collectors.toList());
+             
               for(String obj:list){
             	 String[] trans = obj.split(",");
             	/*Save the Customer Statement details in TransactionDTO object*/
                	TransactionDTO txnDTO = new TransactionDTO(Integer.parseInt(trans[0]),
                			trans[1],trans[2],Double.parseDouble(trans[3]),
                         Double.parseDouble(trans[4]),Double.parseDouble(trans[5]));
-              
-               	/*Adding transaction object into List*/
-               	transactionList.add(txnDTO);
+               	transactionList.add(txnDTO);			 // Adding transaction object into List 
               }
 
         } catch (IOException ie) {
@@ -158,7 +154,7 @@ public class CustomerStatementValidation {
         /*Create List for holding Customer Statement details objects*/
 		 List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();;
 		
-		try{
+		try {
 			/*Getting XML report from resource bundle*/
 		    String fileName = System.getProperty("user.dir")+FILENAME_XML;
 		    
@@ -188,16 +184,16 @@ public class CustomerStatementValidation {
 					
 					 /*Save the Customer Statement details in TransactionDTO object*/
                 	TransactionDTO txnDTO = new TransactionDTO(txnRefNo,accountNum,description,
-                			startBalance,mutation,endBalance);
-                	/*Adding transaction object into List*/
-                	transactionList.add(txnDTO);
+                			startBalance,mutation,endBalance);                	
+                	transactionList.add(txnDTO);		// Adding transaction object into List
 				}
 			}
-		}catch(Exception ex) {
+		} catch(Exception ex) {
 			System.out.println("Error occured while reading file"+ex.getMessage()+"--"+ex.getCause());
         }
 		return transactionList;
 	}
+	
 	
 	/** 
 	 * @param failureTransList - Generating failure reports in CSV file format
@@ -205,59 +201,56 @@ public class CustomerStatementValidation {
 	private static boolean doGenerateFailureCSVReport(List<TransactionDTO> failureTransList) {
 		FileWriter fileWriter = null;
 		boolean flag = false;
-		try{
-			/* Getting destination path to generate report*/ 
+		
+		try {
+			/* Getting destination path for generating report*/ 
 			filePath = System.getProperty("user.dir")+FAILURE_FILE_CSV;
 			
 			/*Writing report file to destination path*/
 			fileWriter = new FileWriter(filePath);
-			//Write the CSV file header
-			fileWriter.append(FILE_HEADER.toString());
-			//Add a new line separator after the header
-			fileWriter.append(NEW_LINE_SEPARATOR);
-
-			//Write a failure report to the CSV file
-	        for (TransactionDTO transDTO : failureTransList) {
-	        	fileWriter.append(String.valueOf(transDTO.getTxnsRefNo()));
-	            fileWriter.append(COMMA_DELIMITER);
-	            fileWriter.append(transDTO.getDescription());
-	            fileWriter.append(NEW_LINE_SEPARATOR);
-	        }
-	        flag = true;
-		}catch(Exception ex){
+			fileWriter.append(FILE_HEADER.toString());		//Write the CSV file header
+			fileWriter.append(NEW_LINE_SEPARATOR);			//Add a new line separator after the header
+		
+			/*Write a failure report to the CSV file*/
+			String recordAsCsv = failureTransList.stream()
+			        .map(TransactionDTO::toCsvRow)
+			        .collect(Collectors.joining(System.getProperty("line.separator")));
+	
+			fileWriter.write(recordAsCsv);
+			flag = true;
+		} catch(Exception ex){
 			System.out.println("Error occured while writing the failure transactions report"+ex.getMessage()+"--"+ex.getCause());
-		}finally {
-			 try {
+		} finally {
+			  try {
 	              fileWriter.flush();
 	              fileWriter.close();
-	         }catch (IOException e) {
+	         } catch (IOException e) {
 	              System.out.println("Error while flushing/closing fileWriter"+e.getMessage()+"--"+e.getCause());
 	         }
 	    }
-		 return flag;
+		return flag;		
 	}
-	
+
 	/** 
 	 * @param failureTransList - Generating failure reports in XML file format
 	 */
 	private static boolean doGenerateFailureXMLReport(List<TransactionDTO> failureTransList) {
+		
 		try {
 			 /*Getting destination path to generate report*/
 			 filePath = System.getProperty("user.dir")+FAILURE_FILE_XML;
 
-			 // Create XML writer objects 
+			 /*Create XML writer objects */
 			 DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 			 DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
 			 Document document = documentBuilder.newDocument();
-
-			 // root element
-			 Element root = document.createElement("records");
+			
+			 Element root = document.createElement("records");   // root element
 			 document.appendChild(root);
 			
 			 // Generating XML records
 			 for(TransactionDTO transDTO:failureTransList) {
-				// Transaction element
-				Element transaction = document.createElement("record");
+				Element transaction = document.createElement("record");    // Transaction element
 				root.appendChild(transaction);
 	
 				/*Set an attribute to transaction element*/
@@ -275,12 +268,13 @@ public class CustomerStatementValidation {
 			 Transformer transformer = transformerFactory.newTransformer();
 			 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			
 			 DOMSource domSource = new DOMSource(document);
 			 StreamResult streamResult = new StreamResult(new File(filePath));
 			 transformer.transform(domSource, streamResult);
 			 return true;
-		}catch(Exception ex) {
-			System.out.println("Error occured while writing the failure transactions report"+ex.getMessage()+"--"+ex.getCause());
+		} catch(Exception ex) {
+			 System.out.println("Error occured while writing the failure transactions report"+ex.getMessage()+"--"+ex.getCause());
 			 return false;
 		}
 	}

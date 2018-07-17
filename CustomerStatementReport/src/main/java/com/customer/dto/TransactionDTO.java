@@ -1,6 +1,8 @@
 package com.customer.dto;
 
 import java.io.Serializable;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TransactionDTO implements Serializable{
 
@@ -23,6 +25,15 @@ public class TransactionDTO implements Serializable{
 	   this.Mutation = Mutation;
 	   this.Description = Description;		   
 	}
+	
+	/*Generating list into the String */
+	public String toCsvRow() {
+	    return Stream.of(String.valueOf(TxnsRefNo),Description)
+	            .map(value -> value.replaceAll("\"", "\"\""))
+	            .map(value -> Stream.of("\"", ",").anyMatch(value::contains) ? "\"" + value + "\"" : value)
+	            .collect(Collectors.joining(","));
+	}
+	
 
 	/**
 	 * @return the txnsRefNo
