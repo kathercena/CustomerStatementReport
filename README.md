@@ -9,6 +9,9 @@ Step 1:
 
 Kindly take the CustomerStatementReport project from given Github link and placed in your local system.
 
+If you want to run directly this project then you can follow step 5 to step 7. 
+
+Otherwise if you want to build and run this project by below steps
 
 Step 2:
 
@@ -31,6 +34,7 @@ import the CustomerStatementReport maven projects into your eclispse.
 Build the the CustomerStatementReport project by using maven
 
 ->Right click on CustomerStatementReport and Run As --> Maven build --> Goals --> clean install
+
 Step 4:
 
 Once successfully build the project, output jar will be generated at project target location.
