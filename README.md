@@ -47,7 +47,7 @@ go to the path: <<you placed projects in disk path>>\CustomerStatementReport-mas
 
 Run the project jar file
 
--> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT-jar com.customer.validation.CustomerStatementValidation
+-> java -cp target\CustomerStatementReport-0.0.1-SNAPSHOT.jar com.customer.validation.CustomerStatementValidation
 
 Step 6:
 
