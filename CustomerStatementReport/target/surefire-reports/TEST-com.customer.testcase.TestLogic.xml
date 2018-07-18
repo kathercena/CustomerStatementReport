@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="com.customer.testcase.TestLogic" time="0.225" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="com.customer.testcase.TestLogic" time="0.7" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_73\jre\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 7"/>
-    <property name="classworlds.conf" value="D:\ProjectLatets\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf1211324596351880362.tmp"/>
+    <property name="classworlds.conf" value="D:\ProjectLatets\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf3163190348078942406.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_73\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_171/bin/client;C:/Program Files/Java/jre1.8.0_171/bin;C:/Program Files/Java/jre1.8.0_171/lib/i386;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\PC Connectivity Solution\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Toshiba\Bluetooth Toshiba Stack\sys\;C:\Program Files\Java\jdk1.8.0_73\bin;C:\Program Files\Microsoft SQL Server\90\Tools\binn\;E:\aiway\eclipse;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,9 +61,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase classname="com.customer.testcase.TestLogic" name="SizeValidation" time="0.204"/>
-  <testcase classname="com.customer.testcase.TestLogic" name="EndBalanceEqualsTest" time="0"/>
-  <testcase classname="com.customer.testcase.TestLogic" name="EndBalanceCalculationTest" time="0.002"/>
+  <testcase classname="com.customer.testcase.TestLogic" name="SizeValidation" time="0.658"/>
+  <testcase classname="com.customer.testcase.TestLogic" name="EndBalanceEqualsTest" time="0.008"/>
+  <testcase classname="com.customer.testcase.TestLogic" name="EndBalanceCalculationTest" time="0.015"/>
   <testcase classname="com.customer.testcase.TestLogic" name="ContentValidation" time="0.006"/>
   <testcase classname="com.customer.testcase.TestLogic" name="NullValidation" time="0.008"/>
   <testcase classname="com.customer.testcase.TestLogic" name="AccNumberValidation" time="0.005"/>

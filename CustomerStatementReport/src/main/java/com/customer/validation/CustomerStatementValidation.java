@@ -60,12 +60,18 @@ public class CustomerStatementValidation {
         List<TransactionDTO> failureTransList = new ArrayList<TransactionDTO>();
 		Scanner input = null;
 		boolean flag = false;
+		int choice;
+		
 		try {
 			input = new Scanner(System.in);
-			int choice = input.nextInt();
+			choice = input.nextInt();
+			/*Checking valid user inputs*/
+			while(choice != 1 && choice != 2) {
+				System.out.println("Please input valid option");
+				choice = input.nextInt();
+			}
 			
-			/*Calling Customer Statement report validation method*/
-			failureTransList = doValidateCustomerStatement(choice);
+			failureTransList = doValidateCustomerStatement(choice); //Calling Customer Statement report validation method
 			
 			if(failureTransList.size() > 0) {
 				if(choice == 1)
@@ -73,13 +79,19 @@ public class CustomerStatementValidation {
 				else
 					flag = doGenerateFailureXMLReport(failureTransList);
 			}
+			
 			if(flag)
 				System.out.println("Customer Statement report successfully validated.Failure Reports are generated at below path\n"+filePath);
 			
 		} catch(Exception ex) {
-			input.close();
 			System.out.println("Error occured while reading file"+ex.getMessage()+" "+ex.getCause());
-		}
+		} finally {
+			  try {
+				  input.close();
+	         } catch (Exception e) {
+	              System.out.println("Error while closing input scanner"+e.getMessage()+"--"+e.getCause());
+	         }
+	    }
     }
 
 	/** 
