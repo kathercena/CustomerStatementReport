@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
@@ -44,7 +46,9 @@ public class CustomerStatementValidation {
     private static final String FILENAME_XML = "\\target\\classes\\com\\customer\\files\\records.xml";
     private static final String FAILURE_FILE_CSV = "\\target\\classes\\com\\customer\\files\\failure.csv";
     private static final String FAILURE_FILE_XML = "\\target\\classes\\com\\customer\\files\\failure.xml";
-    private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##");
+    // Decimal format for English local
+    private static final DecimalFormatSymbols SYMBOLS_EN_US = DecimalFormatSymbols.getInstance(Locale.US);
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##",SYMBOLS_EN_US);
     //CSV file header
     private static final String FILE_HEADER = "Reference,Description";
     private static String filePath = "";
